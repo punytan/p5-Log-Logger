@@ -79,3 +79,22 @@ use Log::Logger::Handler::Screen;
     $logger->fatal($res);
     $logger->unknown($res);
 }
+
+__END__
+
+D, [2013-02-08T00:30:08 #93116] DEBUG -- logger.pl: hi, debug
+I, [2013-02-08T00:30:08 #93116]  INFO -- logger.pl: hi, info
+W, [2013-02-08T00:30:08 #93116]  WARN -- logger.pl: hi, warn
+E, [2013-02-08T00:30:08 #93116] ERROR -- logger.pl: hi, error
+F, [2013-02-08T00:30:08 #93116] FATAL -- logger.pl: hi, fatal
+A, [2013-02-08T00:30:08 #93116]   ANY -- logger.pl: hi, any
+I, [2013-02-08T00:30:08 #93116]  INFO -- logger.pl: hi, info
+W, [2013-02-08T00:30:08 #93116]  WARN -- logger.pl: hi, warn
+E, [2013-02-08T00:30:08 #93116] ERROR -- logger.pl: hi, error
+F, [2013-02-08T00:30:08 #93116] FATAL -- logger.pl: hi, fatal
+A, [2013-02-08T00:30:08 #93116]   ANY -- logger.pl: hi, any
+cache:- dos:-   harddos:-   host:192.168.0.1    isrobot:1   level:INFO  method:GET  path_info:/list protocol:HTTP/1.1   referer:-   size:5316   status:200  taken:9789  time:Fri Feb  8 00:30:08 2013   ua:Mozilla/5.0
+errors:0.code:215   errors:0.message:Bad Authentication data    level:WARN
+errors:0.code:215   errors:0.message:Bad Authentication data    level:ERROR
+errors:0.code:215   errors:0.message:Bad Authentication data    level:FATAL
+errors:0.code:215   errors:0.message:Bad Authentication data    level:ANY

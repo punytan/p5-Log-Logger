@@ -29,8 +29,8 @@ sub format {
 
     my $label = $self->log_level($level);
     my %log_hash = $self->{enable_dump}
-        ? %{ $self->serializer->flatten($loginfo) }
-        : %$loginfo;
+        ? ( level => $self->log_level($level), %{ $self->serializer->flatten($loginfo) } )
+        : ( level => $self->log_level($level), %$loginfo );
 
     my @keys = ($self->{sort_keys} ? sort keys %log_hash : keys %log_hash);
 
