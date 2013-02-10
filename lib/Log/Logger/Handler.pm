@@ -1,6 +1,7 @@
 package Log::Logger::Handler;
 use strict;
 use warnings;
+use Log::Logger::Util;
 
 sub new {
     my ($class, %args) = @_;
@@ -12,14 +13,12 @@ sub new {
         }
     };
 
-    my ($formatter) = keys %{ $args{formatter} };
-    my $formatter_class = join "::", "Log::Logger::Formatter", $formatter;
+    my ($pkg, $opts) = each %{$args{formatter}};
+    $pkg = Log::Logger::Util::load_class($pkg, "Log::Logger::Formatter");
 
     bless {
+        formatter       => $pkg->new(%$opts),
         level_condition => $args{level_condition} || sub { 1 },
-        formatter => $formatter_class->new(
-            %{ $args{formatter}->{$formatter} },
-        ),
     }, $class;
 }
 
