@@ -7,10 +7,10 @@ use Hash::Flatten;
 sub new {
     my ($class, %args) = @_;
     my $self = $class->SUPER::new(%args);
+
     $self->{enable_dump} = $args{enable_dump} // 1;
     $self->{sort_keys}   = $args{sort_keys}   // 1;
-
-    $self->{serializer} = $self->{serializer} // Hash::Flatten->new(
+    $self->{serializer}  = $self->{serializer} // Hash::Flatten->new(
         HashDelimiter  => '.',
         ArrayDelimiter => ',',
     );
@@ -27,10 +27,10 @@ sub format {
         $loginfo = { message => $loginfo };
     }
 
-    my $label = $self->log_level($level);
+    my $level_name = $self->log_level($level);
     my %log_hash = $self->{enable_dump}
-        ? ( level => $self->log_level($level), %{ $self->serializer->flatten($loginfo) } )
-        : ( level => $self->log_level($level), %$loginfo );
+        ? ( level => $level_name, %{ $self->serializer->flatten($loginfo) } )
+        : ( level => $level_name, %$loginfo );
 
     my @keys = ($self->{sort_keys} ? sort keys %log_hash : keys %log_hash);
 
