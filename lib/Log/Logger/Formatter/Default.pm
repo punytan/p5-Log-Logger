@@ -14,15 +14,15 @@ sub new {
 sub format {
     my ($self, $level, @args) = @_;
 
-    my $label = $self->log_level($level);
-    my $severity_id = substr $label, 0, 1;
+    my $level_name  = $self->log_level($level);
+    my $severity_id = substr $level_name, 0, 1;
 
     my $message = $self->{enable_color}
         ? Term::ANSIColor::colored([ 'green' ], "@args")
         : "@args";
 
     sprintf "%s, [%s #%d] %5s -- %s: %s",
-        $severity_id,  $self->timestamp, $self->pid, $label, $self->process_basename, $message;
+        $severity_id,  $self->timestamp, $self->pid, $level_name, $self->process_basename, $message;
 }
 
 1;
