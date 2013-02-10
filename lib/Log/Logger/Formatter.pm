@@ -10,8 +10,12 @@ use Log::Logger::Severity;
 sub new {
     my ($class, %args) = @_;
 
+    my $ts_format = $args{timestamp_format} // '%Y-%m-%dT%H:%M:%S';
+    my $auto_newline  = $args{auto_newline} // 1;
+
     bless {
-        timestamp_format => ($args{timestamp_format} || '%Y-%m-%dT%H:%M:%S'),
+        timestamp_format => $ts_format,
+        auto_newline     => $auto_newline,
     }, $class;
 }
 

@@ -34,7 +34,14 @@ sub format {
 
     my @keys = ($self->{sort_keys} ? sort keys %log_hash : keys %log_hash);
 
-    join "\t", (map { "$_:$log_hash{$_}" =~ s/\t/\\t/gr } @keys);
+    my $log = join "\t", (map { "$_:$log_hash{$_}" =~ s/\t/\\t/gr } @keys);
+
+    if ($self->{auto_newline}) {
+        chomp $log;
+        return "$log\n";
+    }
+
+    return $log;
 }
 
 1;

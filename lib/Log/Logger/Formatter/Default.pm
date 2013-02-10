@@ -21,8 +21,15 @@ sub format {
         ? Term::ANSIColor::colored([ 'green' ], "@args")
         : "@args";
 
-    sprintf "%s, [%s #%d] %5s -- %s: %s",
+    my $log = sprintf "%s, [%s #%d] %5s -- %s: %s",
         $severity_id,  $self->timestamp, $self->pid, $level_name, $self->process_basename, $message;
+
+    if ($self->{auto_newline}) {
+        chomp $log;
+        return "$log\n";
+    }
+
+    return $log;
 }
 
 1;
