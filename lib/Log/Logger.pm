@@ -22,44 +22,19 @@ sub new {
     }, $class;
 }
 
-sub debug {
-    my ($self, @args) = @_;
-    $self->log(LOG_LEVEL_DEBUG, @args);
-}
-
-sub error {
-    my ($self, @args) = @_;
-    $self->log(LOG_LEVEL_ERROR, @args);
-}
-
-sub fatal {
-    my ($self, @args) = @_;
-    $self->log(LOG_LEVEL_FATAL, @args);
-}
-
-sub info {
-    my ($self, @args) = @_;
-    $self->log(LOG_LEVEL_INFO, @args);
-}
-
-sub unknown {
-    my ($self, @args) = @_;
-    $self->log(LOG_LEVEL_UNKNOWN, @args);
-}
-
-sub warn {
-    my ($self, @args) = @_;
-    $self->log(LOG_LEVEL_WARN, @args);
-}
+sub debug   { shift->log(LOG_LEVEL_DEBUG,   @_) }
+sub error   { shift->log(LOG_LEVEL_ERROR,   @_) }
+sub warn    { shift->log(LOG_LEVEL_WARN,    @_) }
+sub info    { shift->log(LOG_LEVEL_INFO,    @_) }
+sub fatal   { shift->log(LOG_LEVEL_FATAL,   @_) }
+sub unknown { shift->log(LOG_LEVEL_UNKNOWN, @_) }
 
 sub log {
     my ($self, $level, @args) = @_;
-
     for my $handler (@{ $self->{handlers} }) {
         next unless $handler->should_log($level);
         $handler->write($level, @args);
     }
-
 }
 
 1;
