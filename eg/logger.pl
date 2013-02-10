@@ -1,10 +1,8 @@
 use strict;
 use warnings;
+use utf8;
 use Log::Logger;
 use Log::Logger::Severity ':all';
-use Log::Logger::Formatter::Default;
-use Log::Logger::Formatter::LTSV;
-use Log::Logger::Handler::Screen;
 
 {
     my $logger = Log::Logger->new;
@@ -14,6 +12,10 @@ use Log::Logger::Handler::Screen;
     $logger->error('hi, error');
     $logger->fatal('hi, fatal');
     $logger->unknown('hi, any');
+    $logger->unknown('いろはにほへと');
+    $logger->unknown('いろはにほへと');
+    $logger->unknown('いろはにほへと');
+    $logger->unknown('いろはにほへと');
 }
 
 {
