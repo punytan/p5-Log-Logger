@@ -25,7 +25,7 @@ sub timestamp {
     localtime( Time::Piece->strptime($seconds, "%s")->epoch )->strftime($self->{timestamp_format});
 }
 
-sub log_level {
+sub level_name {
     my ($self, $level) = @_;
     $Log::Logger::Severity::NAME->{$level};
 }

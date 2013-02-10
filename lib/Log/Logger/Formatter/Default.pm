@@ -24,7 +24,7 @@ sub new {
 sub format {
     my ($self, $level, @args) = @_;
 
-    my $level_name  = $self->log_level($level);
+    my $level_name  = $self->level_name($level);
     my $severity_id = substr $level_name, 0, 1;
 
     my $message = $self->{enable_color}

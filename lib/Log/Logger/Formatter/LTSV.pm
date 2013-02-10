@@ -27,7 +27,7 @@ sub format {
         $loginfo = { message => $loginfo };
     }
 
-    my $level_name = $self->log_level($level);
+    my $level_name = $self->level_name($level);
     my %log_hash = $self->{enable_dump}
         ? ( level => $level_name, %{ $self->serializer->flatten($loginfo) } )
         : ( level => $level_name, %$loginfo );
