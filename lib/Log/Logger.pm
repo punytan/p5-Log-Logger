@@ -1,21 +1,19 @@
 package Log::Logger;
 use strict;
 use warnings;
+use Log::Logger::Util;
 use Log::Logger::Severity ':all';
-use Data::Dumper;
 
 our $VERSION = '0.01';
 
 sub new {
-    my ($class, %args) = @_;
-    unless (%args) {
-        %args = ( Screen => {} );
-    }
+    my $class = shift;
+    my @args  = @_ ? @_ : ( Screen => {} );
 
     my @handlers;
-    for (keys %args) {
-        my $pkg = join "::", __PACKAGE__, "Handler", $_;
-        my $handler = $pkg->new( %{$args{$_}} );
+    while (my ($handler_class, $opts) = splice @args, 0, 2) {
+        my $pkg = Log::Logger::Util::load_class($handler_class, "Log::Logger::Handler");
+        my $handler = $pkg->new(%$opts);
         push @handlers, $handler;
     }
 
