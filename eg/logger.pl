@@ -80,6 +80,26 @@ use Log::Logger::Handler::Screen;
     $logger->unknown($res);
 }
 
+{
+    my $logger = Log::Logger->new(
+        File => {
+            level_condition => sub { $_[0] > LOG_LEVEL_DEBUG },
+            filename  => 'eg.log.%Y%m%d',
+            formatter => {
+                Default => { enable_color => 0 }
+            }
+        },
+    );
+
+    $logger->debug('hi, debug');
+    $logger->info('hi, info');
+    $logger->warn('hi, warn');
+    $logger->error('hi, error');
+    $logger->fatal('hi, fatal');
+    $logger->unknown('hi, any');
+}
+
+
 __END__
 
 D, [2013-02-08T00:30:08 #93116] DEBUG -- logger.pl: hi, debug
