@@ -1,7 +1,6 @@
 package Log::Logger::Handler::Screen;
 use strict;
 use warnings;
-use Term::ANSIColor ();
 use parent 'Log::Logger::Handler';
 
 sub write {
