@@ -7,8 +7,18 @@ use parent 'Log::Logger::Formatter';
 sub new {
     my ($class, %args) = @_;
     my $self = $class->SUPER::new(%args);
+
     $self->{enable_color} = $args{enable_color} // 1;
-    return $self;
+    $self->{color} = $args{color} // {
+        DEBUG => [ qw/ red   on_white  / ],
+        INFO  => [ qw/ green           / ],
+        WARN  => [ qw/ black on_yellow / ],
+        ERROR => [ qw/ red   on_black  / ],
+        FATAL => [ qw/ black on_red    / ],
+        ANY   => [ qw/ red   on_black  / ],
+    };
+
+    $self;
 }
 
 sub format {
@@ -18,7 +28,7 @@ sub format {
     my $severity_id = substr $level_name, 0, 1;
 
     my $message = $self->{enable_color}
-        ? Term::ANSIColor::colored([ 'green' ], "@args")
+        ? Term::ANSIColor::colored($self->{color}{$level_name}, "@args")
         : "@args";
 
     my $log = sprintf "%s, [%s #%d] %5s -- %s: %s",
