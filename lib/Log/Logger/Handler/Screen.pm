@@ -7,8 +7,7 @@ sub write {
     my ($self, $level, @args) = @_;
 
     my $message = $self->formatter->format($level, @args);
-    chomp $message;
-    print $message, "\n";
+    print $message;
 }
 
 1;
