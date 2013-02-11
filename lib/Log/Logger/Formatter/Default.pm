@@ -32,7 +32,7 @@ sub format {
         : "@args";
 
     my $log = sprintf "%s, [%s #%d] %5s -- %s: %s",
-        $severity_id,  $self->timestamp, $self->pid, $level_name, $self->process_basename, $message;
+        $severity_id,  $self->timestamp, $self->pid, $level_name, $self->basename, $message;
 
     if ($self->{auto_newline}) {
         chomp $log;
