@@ -1,10 +1,11 @@
+package Foo::Application;
 use strict;
 use warnings;
 use utf8;
 use Log::Logger;
 use Log::Logger::Severity ':all';
 
-{
+sub default {
     my $logger = Log::Logger->new;
     $logger->debug('hi, debug');
     $logger->info('hi, info');
@@ -18,7 +19,7 @@ use Log::Logger::Severity ':all';
     $logger->unknown('いろはにほへと');
 }
 
-{
+sub screen {
     my $logger = Log::Logger->new(
         Screen => {
             level_condition => sub { $_[0] > LOG_LEVEL_DEBUG },
@@ -35,7 +36,7 @@ use Log::Logger::Severity ':all';
     $logger->unknown('hi, any');
 }
 
-{
+sub ltsv {
     my $logger = Log::Logger->new(
         Screen => {
             level_condition => sub { $_[0] > LOG_LEVEL_DEBUG },
@@ -60,11 +61,6 @@ use Log::Logger::Severity ':all';
         size      => 5316,
         referer   => "-",
         ua        => "Mozilla/5.0",
-        taken     => 9789,
-        isrobot   => 1,
-        dos       => "-",
-        harddos   => "-",
-        cache     => "-",
     });
 
     my $res = {
@@ -82,7 +78,7 @@ use Log::Logger::Severity ':all';
     $logger->unknown($res);
 }
 
-{
+sub multiple_output {
     my $logger = Log::Logger->new(
         File => {
             level_condition => sub { $_[0] > LOG_LEVEL_DEBUG },
@@ -91,6 +87,7 @@ use Log::Logger::Severity ':all';
                 Default => { enable_color => 0 }
             }
         },
+        Screen => {},
     );
 
     $logger->debug('hi, debug');
@@ -101,6 +98,20 @@ use Log::Logger::Severity ':all';
     $logger->unknown('hi, any');
 }
 
+
+package main;
+use strict;
+use warnings;
+
+Foo::Application->default;
+Foo::Application->screen;
+Foo::Application->ltsv;
+Foo::Application->multiple_output;
+
+my $logger = Log::Logger->new;
+$logger->debug('hi, debug');
+$logger->info('hi, info');
+$logger->warn('hi, warn');
 
 __END__
 
