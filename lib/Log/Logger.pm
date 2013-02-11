@@ -39,9 +39,6 @@ sub log {
 
 1;
 __END__
-%N   Newline
-%S   Program name
-%m   Message
 
 =head1 NAME
 
