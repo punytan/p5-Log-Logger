@@ -38,10 +38,13 @@ sub hostname { Sys::Hostname::hostname() }
 sub user     { scalar getpwuid($<) }
 sub group    { scalar getgrgid($(+0) }
 sub basename { File::Basename::basename($0) }
-sub caller_package    { (caller shift->{caller_level})[0] }
-sub caller_filename   { (caller shift->{caller_level})[1] }
-sub caller_line       { (caller shift->{caller_level})[2] }
-sub caller_subroutine { (caller shift->{caller_level} + 1)[3] || "" }
+sub caller   {
+    my ($package, $filename, $line);
+    for (my $i = 0; ($package, $filename, $line) = caller $i; $i++) {
+        last if $package !~ /^Log::Logger/;
+    }
+    return [$package, $filename, $line];
+}
 
 1;
 __END__
