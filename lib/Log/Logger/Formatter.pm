@@ -10,13 +10,13 @@ use Log::Logger::Severity;
 sub new {
     my ($class, %args) = @_;
 
-    my $ts_format = $args{timestamp_format} // '%Y-%m-%dT%H:%M:%S';
-    my $auto_newline  = $args{auto_newline} // 1;
-    my $caller_level  = $args{caller_level} // 4;
-    my $message_layout = $args{message_layout} // "%I, [%T #%P] %x -- %p: %m at %f line %l";
+    my $timestamp_format = $args{timestamp_format} // '%Y-%m-%dT%H:%M:%S';
+    my $auto_newline     = $args{auto_newline}     // 1;
+    my $caller_level     = $args{caller_level}     // 4;
+    my $message_layout   = $args{message_layout}   // "%id, [%timestamp #%pid] %level_fixed -- %package: %message at %filename line %line";
 
     bless {
-        timestamp_format => $ts_format,
+        timestamp_format => $timestamp_format,
         auto_newline     => $auto_newline,
         caller_level     => $caller_level,
         message_layout   => $message_layout,
@@ -28,19 +28,33 @@ sub render_layout {
 
     my $caller = $self->caller;
     my %map = (
-        I => sub { substr $self->level_name($level), 0, 1 },
-        T => sub { $self->timestamp },
-        P => sub { $self->pid },
-        L => sub { $self->level_name($level) },
-        x => sub { sprintf "%5s", $self->level_name($level) },
-        p => sub { $caller->{package} },
-        m => sub { $message },
-        f => sub { $caller->{filename} },
-        l => sub { $caller->{line} },
+        level_fixed => sub { sprintf "%5s", __PACKAGE__->level_name($level) },
+        package  => sub { $caller->{package} },
+        message  => sub { $message },
+        filename => sub { $caller->{filename} },
+        line     => sub { $caller->{line} },
     );
 
     my $layout = $self->{message_layout};
-    $layout =~ s/\%([ITPLpmflx])/$map{$1}->()/ge;
+    $layout =~ s!
+        \%(
+            id
+            |timestamp
+            |level_fixed
+            |level
+            |pid
+            |hostname
+            |user
+            |group
+            |basename
+            |package
+            |message
+            |filename
+            |line
+        )
+    !
+        $map{$1} ? $map{$1}->($level) : $self->$1($level)
+    !gex;
 
     $layout;
 }
@@ -57,6 +71,8 @@ sub level_name {
     $Log::Logger::Severity::NAME->{$level};
 }
 
+sub level    { $Log::Logger::Severity::NAME->{$_[0]} }
+sub id       { substr(__PACKAGE__->level_name($_[1]), 0, 1) }
 sub pid      { $$ }
 sub hostname { Sys::Hostname::hostname() }
 sub user     { scalar getpwuid($<) }
