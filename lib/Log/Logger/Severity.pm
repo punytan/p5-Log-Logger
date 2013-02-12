@@ -37,3 +37,39 @@ our $MAP = { reverse %$NAME };
 
 1;
 __END__
+
+=head1 NAME
+
+Log::Logger::Severity - Log level constants for Log::Logger
+
+=head1 SYNOPSIS
+
+    use Log::Logger::Severity ':all'; # export all log levels
+
+    # levels
+    LOG_LEVEL_DEBUG
+    LOG_LEVEL_INFO
+    LOG_LEVEL_WARN
+    LOG_LEVEL_ERROR
+    LOG_LEVEL_FATAL
+    LOG_LEVEL_UNKNOWN
+
+=head1 DESCRIPTION
+
+Log::Logger::Severity exports logging level constants for L<Log::Logger>
+
+=head1 AUTHOR
+
+punytan E<lt>punytan@gmail.comE<gt>
+
+=head1 SEE ALSO
+
+L<Log::Logger>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
