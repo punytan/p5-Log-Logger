@@ -88,3 +88,24 @@ sub caller   {
 
 1;
 __END__
+
+=head1 NAME
+
+Log::Logger::Formatter - Base class for Log::Logger's formatter
+
+=head1 SEE ALSO
+
+L<Log::Logger::Formatter::Default>
+L<Log::Logger::Formatter::LTSV>
+
+=head1 AUTHOR
+
+punytan E<lt>punytan@gmail.comE<gt>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
