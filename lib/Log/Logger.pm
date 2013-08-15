@@ -42,7 +42,7 @@ __END__
 
 =head1 NAME
 
-Log::Logger -
+Log::Logger - Log
 
 =head1 SYNOPSIS
 
