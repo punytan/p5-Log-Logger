@@ -1,0 +1,57 @@
+{
+   "abstract" : "Log",
+   "author" : [
+      "punytan <punytan@gmail.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Milla version v1.0.3, Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Log-Logger",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "inc",
+         "share",
+         "eg",
+         "examples"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "Module::Build::Tiny" : "0.025"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Test::Pod" : "1.41"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0.98"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/punytan/p5-Log-Logger/issues"
+      },
+      "homepage" : "https://github.com/punytan/p5-Log-Logger",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/punytan/p5-Log-Logger.git",
+         "web" : "https://github.com/punytan/p5-Log-Logger"
+      }
+   },
+   "version" : "0.01"
+}
+
